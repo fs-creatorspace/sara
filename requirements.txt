@@ -67,3 +67,5 @@ openai
 python-dotenv
 SpeechRecognition
 pyaudio
+gtts
+playsound
