@@ -13,6 +13,10 @@ class Conversation():
             self.id = load
             pass
 
+        if not os.path.isdir(path):
+            print(f"Path not found. Creating {path}")
+            os.mkdir(path)
+
         # Getting List of all folders
         folders = [f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
         
@@ -27,8 +31,7 @@ class Conversation():
 
         os.mkdir(path + f"/conv_{self.id}")
 
-        print(self.id)
-        print( "Hey")
+        print(f"Setting up conversation {self.id}")
         
         self.recognizer = sr.Recognizer()
 
