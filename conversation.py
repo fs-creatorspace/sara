@@ -9,10 +9,10 @@ import re
 class Conversation():
     def __init__(self, path: str, load = 0):
 
+        self.question_storage = []
         self.audio_storage = []
         self.transcript_storage = []
         self.summary_storage = []
-        self.question_storage = []
 
         if load:
             self.id = load
@@ -49,6 +49,10 @@ class Conversation():
         load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
+    def speak(self, path: str):
+        # Plays mp3 file from path
+        return
+
     def record(self) -> sr.AudioData:
         # Starts listening to user input and returns an audio data object from recognizer
         # Saves wav to audio_storage
@@ -71,9 +75,5 @@ class Conversation():
     
     def textToSpeech(self, question: str) -> str:
         # Takes question and saves it as mp3 audio. Returns path to mp3 file
-        return
-
-    def speak(self, path: str):
-        # Plays mp3 file from path
         return
 
