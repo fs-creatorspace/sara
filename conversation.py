@@ -6,14 +6,29 @@ import pygame.mixer
 import os
 import re
 
-def Conversation():
-    def __init__(self, path: str):
+class Conversation():
+    def __init__(self, path: str, load = 0):
+
+        if load:
+            self.id = load
+            pass
 
         # Getting List of all folders
         folders = [f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
+        
         # Extract the numbers at the end of the folder names, convert them to integers, and find the maximum
-        folder_numbers = [int(re.search(r'\d+$', folder).group()) for folder in folders if re.search(r'\d+$', folder)]
-        self.id = max(folder_numbers) if folder_numbers else 1
+        folder_numbers = [int(f.split("_")[1]) for f in folders]
+        
+        # folder_numbers = [int(re.search(r'\d+$', folder).group()) for folder in folders if re.search(r'\d+$', folder)]
+
+        if folder_numbers:
+            self.id = max(folder_numbers) + 1
+        else: self.id = 1
+
+        os.mkdir(path + f"/conv_{self.id}")
+
+        print(self.id)
+        print( "Hey")
         
         self.recognizer = sr.Recognizer()
 
@@ -21,6 +36,10 @@ def Conversation():
         self.transcript_storage = []
         self.summary_storage = []
         self.question_storage = []
+
+        # Setup environment variables
+        load_dotenv()
+        openai.api_key = os.getenv("OPENAI_API_KEY")
 
     def record(self) -> sr.AudioData:
         # Starts listening to user input and returns an audio data object from recognizer
