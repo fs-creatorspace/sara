@@ -9,8 +9,19 @@ import re
 class Conversation():
     def __init__(self, path: str, load = 0):
 
+        self.audio_storage = []
+        self.transcript_storage = []
+        self.summary_storage = []
+        self.question_storage = []
+
         if load:
             self.id = load
+            # TBD
+            # Load all data from folder
+        else:
+            # TBD
+            # Load random start question
+            self.question_storage.append("How did you meet your first love?")
             pass
 
         if not os.path.isdir(path):
@@ -23,8 +34,7 @@ class Conversation():
         # Extract the numbers at the end of the folder names, convert them to integers, and find the maximum
         folder_numbers = [int(f.split("_")[1]) for f in folders]
         
-        # folder_numbers = [int(re.search(r'\d+$', folder).group()) for folder in folders if re.search(r'\d+$', folder)]
-
+        # Set to highest
         if folder_numbers:
             self.id = max(folder_numbers) + 1
         else: self.id = 1
@@ -34,11 +44,6 @@ class Conversation():
         print(f"Setting up conversation {self.id}")
         
         self.recognizer = sr.Recognizer()
-
-        self.audio_storage = []
-        self.transcript_storage = []
-        self.summary_storage = []
-        self.question_storage = []
 
         # Setup environment variables
         load_dotenv()
