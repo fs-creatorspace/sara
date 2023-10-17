@@ -49,6 +49,12 @@ class Conversation():
         load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
+
+    def textToSpeech(self, question: str) -> str:
+        # Takes question and saves it as mp3 audio. Returns path to mp3 file
+        return
+    
+
     def speak(self, path: str):
         # Plays mp3 file from path
         return
@@ -72,8 +78,5 @@ class Conversation():
         # Takes all summaries and all questions and generates a new question with use of LLM
         # Saves new question to question_storage
         return
-    
-    def textToSpeech(self, question: str) -> str:
-        # Takes question and saves it as mp3 audio. Returns path to mp3 file
-        return
+
 
