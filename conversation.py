@@ -111,10 +111,14 @@ class Conversation():
         return audio_data
     
     
-    def speechToText(self, audioData: sr.AudioData) -> str:
+    def speechToText(self, audioData: sr.AudioData = None, bypass = "") -> str:
         # Recieves audio data object and returns a transcript
         # Saves transcript to transcript_storage
-        text = self.recognizer.recognize_google(audioData)
+
+        if bypass:
+            text = bypass
+        else:
+            text = self.recognizer.recognize_google(audioData)
         print(f"You said: {text}")
         self.transcript_storage.append(text)
         return text
