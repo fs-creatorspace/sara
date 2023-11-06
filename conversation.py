@@ -9,7 +9,7 @@ import re
 class Conversation():
     def __init__(self, path: str, load = 0):
         
-        self.path= path
+        self.path = path
         self.conv_counter = 0
         self.recognizer = sr.Recognizer()
         
@@ -29,7 +29,7 @@ class Conversation():
             pass
 
         if not os.path.isdir(path):
-            print(f"Path not found. Creating {path}")
+            print(f"/{path} not found. Creating /{path}")
             os.mkdir(path)
 
         # Getting List of all folders
@@ -43,9 +43,8 @@ class Conversation():
             self.id = max(folder_numbers) + 1
         else: self.id = 1
 
-        os.mkdir(path + f"/conv_{self.id}")
-
         print(f"Setting up conversation {self.id}")
+        os.mkdir(path + f"/conv_{self.id}")
         
         self.recognizer = sr.Recognizer()
 
@@ -55,7 +54,15 @@ class Conversation():
 
 
     def textToSpeech(self, question: str) -> str:
-        # Takes question and saves it as mp3 audio. Returns path to mp3 file
+        """ 
+        Takes question and saves it as mp3 audio. Returns path to mp3 file 
+
+        Args:
+            question (str): The question to be converted to speech
+
+        Returns:
+            str: The path to the saved mp3 file
+        """
         
         # Convert text to speech
         tts = gtts.gTTS(text=question, lang='en')
@@ -81,7 +88,6 @@ class Conversation():
             pygame.mixer.quit()
         else:
             print(f"File {absolute_path} does not exist!")
-        
 
     def record(self) -> sr.AudioData:
         # Starts listening to user input and returns an audio data object from recognizer
