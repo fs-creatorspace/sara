@@ -1,0 +1,7 @@
+Can we do a push to talk?
+    - Very Hard to implement (Maybe with Threading)
+    - We can instead create a smaller timeout where it stops if it is not recognizing any Talking
+
+Can we do a script that starts on our raspberry Pi?
+    - Yes there is a shell script "run_sara.sh" to start a cmd and run our programm. (edit to select which python file)
+
