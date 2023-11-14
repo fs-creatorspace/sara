@@ -1,5 +1,4 @@
 import tkinter as tk
-import time
 import itertools
 from PIL import Image, ImageTk
 
@@ -23,14 +22,17 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
+        # Load and display the animated GIF on the left side
         self.photos = self.load_gif("img/anim.gif")
-        self.label = TypewriterLabel(self)
-        self.label.pack(side="right")
-
         self.image_label = tk.Label(self)
-        self.image_label.pack(side="left")
+        self.image_label.pack(side="left", fill=tk.Y)  # Adjusted to fill the left side vertically
         self.animate(0)
 
+        # Create a text label on the right side for typewriter animation
+        self.text_label = TypewriterLabel(self)
+        self.text_label.pack(side="right")
+
+        # Create a button to change the text
         self.button = tk.Button(self)
         self.button["text"] = "Change Text"
         self.button["command"] = self.change_text
@@ -53,10 +55,10 @@ class Application(tk.Frame):
         self.master.after(20, self.animate, (counter+1) % len(self.photos))
 
     def change_text(self):
-        self.label.animate_text('Lorem ipsum dolor sit amet')
+        self.text_label.animate_text('Lorem ipsum dolor sit amet')
 
 root = tk.Tk()
-root.geometry("1000x600")  # Set the window size
+root.geometry("800x600")  # Set the window size
 root.resizable(False, False)  # Make the window non-resizable
 app = Application(master=root)
 app.mainloop()

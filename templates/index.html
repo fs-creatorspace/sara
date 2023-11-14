@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>S.A.R.A</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div id="container">
+      <div id="container-left">
+        <img id="animation" src="{{ url_for('static', filename='img/think.gif') }}">
+      </div>
+      <div id="container-right">
+        Text from original HTML
+      </div>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</html>

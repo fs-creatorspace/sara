@@ -91,7 +91,7 @@ class Conversation():
 
     def record(self) -> sr.AudioData:
         # Starts listening to user input and returns an audio data object from recognizer
-        # Saves wav as a new file in conversation folder (NOT IN audio_storage!!)
+        # Saves wav as a new file in conversation folder and sr.AudioData-object in audio_storage)
         
         with sr.Microphone() as source:
             print("Please speak something...")
@@ -115,6 +115,8 @@ class Conversation():
             except sr.RequestError:
                 print("API Error.")
         
+        self.audio_storage.append(audio_data)
+        
         return audio_data
     
     
@@ -125,7 +127,9 @@ class Conversation():
         if bypass:
             text = bypass
         else:
-            text = self.recognizer.recognize_google(audioData)
+            if audioData:
+                text = self.recognizer.recognize_google(audioData)
+            else: text = self.recognizer.recognize_google(self.audio_storage[-1])
         print(f"You said: {text}")
         self.transcript_storage.append(text)
         return text
