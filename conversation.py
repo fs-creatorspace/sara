@@ -6,11 +6,12 @@ import pygame.mixer
 import os
 
 class Conversation():
-    def __init__(self, path: str, load = 0):
+    def __init__(self, path: str, load = 0, question_limit = 3):
         
         self.path = path
         self.conv_counter = 0
         self.recognizer = sr.Recognizer()
+        self.question_limit = question_limit
         
         self.question_storage = []
         self.audio_storage = []
@@ -150,6 +151,14 @@ class Conversation():
     def generateQuestion(self) -> str:
         # Takes all summaries and all questions and generates a new question with use of LLM
         # Saves new question to question_storage
+
+        if len(self.question_storage) >= self.question_limit:
+            output = ""
+            for index, question in enumerate(self.question_storage):
+                output += f"question {index}:<br>{question}<br><br>answer {index}:<br>{self.transcript_storage[index]}<br><br>"
+            self.question_storage.append(output)
+            return output
+
         messages = [
         {"role": "system", "content": "You are a helpful assistant that asks questions relevant to a story."},
         {"role": "user", "content": f"You are given a summary of a previously asked questions. Ask a relevant follow up Question (that has not been asked before) to get more relevant information about the summary. Use simple Vocabulary and talk like you are in a real conversation: Questions: '{self.question_storage}' Summary:'{self.summary_storage}'"}
@@ -161,7 +170,7 @@ class Conversation():
         self.question_storage.append(follow_up_q)
         return follow_up_q
 
-    def showHistory(self):
+    def showHistory(self) -> str:
         # prints out the question_storage and summary_storage
         print("Questions:")
         for idx, q in enumerate(self.question_storage):
@@ -171,3 +180,5 @@ class Conversation():
         print("Summaries:")
         for idx, s in enumerate(self.summary_storage):
             print(f"{idx}: {s}")
+
+        return

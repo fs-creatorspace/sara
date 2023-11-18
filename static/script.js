@@ -1,4 +1,9 @@
+let typewriter_timeout = null
+
 function typeWriterEffect(text, speed = 50) {
+  if (typewriter_timeout != null){
+    clearTimeout(typewriter_timeout);
+  }
     const container = document.getElementById('container-right');
     let i = 0;
     container.innerHTML = "";
@@ -6,7 +11,7 @@ function typeWriterEffect(text, speed = 50) {
         if (i < text.length) {
             container.innerHTML += text.charAt(i);
             i++;
-            setTimeout(type, speed);
+            typewriter_timeout = setTimeout(type, speed);
         }
     }
     type();

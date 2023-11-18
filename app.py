@@ -21,7 +21,7 @@ def handle_connect():
     conv = Conversation("conversations")
 
     # Generate the first question audio
-    question_path = conv.textToSpeech(conv.question_storage[-1])
+    conv.textToSpeech(conv.question_storage[-1])
 
     # Write the first question audio to the interface
     socket.emit("emotion", "speak")
@@ -42,7 +42,7 @@ def handle_speak():
 @socket.on("listen")
 def handle_listen():
     # Listen to the answer
-    answer_audio = conv.record()
+    conv.record()
 
     socket.emit("emotion", "think")
     socket.emit("text", "I am thinking")
@@ -50,25 +50,33 @@ def handle_listen():
 @socket.on("think")
 def handle_think():
 
-    answer_text = conv.speechToText()
+    if len(conv.question_storage) < conv.question_limit:
+
+        answer_text = conv.speechToText()
     
-    # Summarize answer
-    conv.summarize(answer_text)
+        # Summarize answer
+        conv.summarize(answer_text)
 
-    # Generate a follow up question
-    follow_up_question = conv.generateQuestion()
+        # Generate a follow up question
+        follow_up_question = conv.generateQuestion()
 
-    # Show the histiry for debug reasons
-    conv.showHistory()
+        # Show the histiry for debug reasons
+        conv.showHistory()
 
-    # Increase conversation counter by one so files don't get overridden
-    conv.conv_counter += 1
+        # Increase conversation counter by one so files don't get overridden
+        conv.conv_counter += 1
 
-    # Generate audio for next question
-    question_path = conv.textToSpeech(follow_up_question)
+        # Generate audio for next question
+        conv.textToSpeech(follow_up_question)
 
-    socket.emit("emotion", "speak")
-    socket.emit("text", follow_up_question)
+        socket.emit("emotion", "speak")
+        socket.emit("text", follow_up_question)
+    else:
+        print("Questino limit reached")
+        print(conv.question_storage)
+        answer_text = conv.speechToText()
+        conv.summarize(answer_text)
+        socket.emit("text", conv.generateQuestion())
 
 if __name__ == '__main__':
     app.run(debug=True)
