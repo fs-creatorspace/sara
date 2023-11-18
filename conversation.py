@@ -139,7 +139,7 @@ class Conversation():
         # Saves summary to summary_storage
         messages = [
         {"role": "system", "content": "You are a helpful assistant focussing on receiving a good story."},
-        {"role": "user", "content": f"Provide a brief summary of the following text and correct any grammar mistakes/wrong words. Dont change the meaning of the text.: '{text}'"}
+        {"role": "user", "content": f"Provide a brief summary of the following text and correct any grammar mistakes/wrong words. Dont change the meaning of the text. If you dont find any mistakes, return the original text instead: '{text}'"}
         ]
     
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
@@ -160,8 +160,10 @@ class Conversation():
             return output
 
         messages = [
-        {"role": "system", "content": "You are a helpful assistant that asks questions relevant to a story."},
-        {"role": "user", "content": f"You are given a summary of a previously asked questions. Ask a relevant follow up Question (that has not been asked before) to get more relevant information about the summary. Use simple Vocabulary and talk like you are in a real conversation: Questions: '{self.question_storage}' Summary:'{self.summary_storage}'"}
+        {"role": "system", "content": "You are a helpful assistant that asks questions relevant to a story. Address the user like you are talking to them when asking questions"},
+        #{"role": "user", "content": f"You are given a summary of a previously asked questions. Ask a relevant follow up Question (that has not been asked before) to get more relevant information about the summary. Use simple Vocabulary and talk like you are in a real conversation: Questions: '{self.question_storage}' Summary:'{self.summary_storage}'"}
+        #new template Try:
+        {"role": "user","content": f"You are given a summary of a previously asked question. Ask a relevant follow-up question (that has not been asked before) to get more relevant information about the summary. Use simple vocabulary and talk like you are in a real conversation.\n\nQuestions: {', '.join(self.question_storage)}\n\nSummary: {self.summary_storage}"}
         ]
     
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
@@ -182,3 +184,23 @@ class Conversation():
             print(f"{idx}: {s}")
 
         return
+
+    def summary(self) -> str:
+        #creates a summary of all questions/answer pairs
+        # Form a dialogue from the provided lists
+        dialogue = []
+        for question, answer in zip(self.question_storage, self.summary_storage):
+            dialogue.append({"role": "user", "content": question})
+            dialogue.append({"role": "assistant", "content": answer})
+
+        # Generate a story summary using ChatGPT
+        messages = [
+            {"role": "system", "content": "You are a storyteller summarizing story based on questions and answers."},
+            *dialogue,
+            {"role": "user", "content": "Summarize the story. Address the user directly as if you would tell them the story in person."}
+        ]
+
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        summary = response.choices[0].message['content'].strip()
+
+        return summary
