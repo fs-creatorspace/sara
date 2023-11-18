@@ -4,7 +4,6 @@ import gtts
 from dotenv import load_dotenv
 import pygame.mixer
 import os
-import re
 
 class Conversation():
     def __init__(self, path: str, load = 0):
