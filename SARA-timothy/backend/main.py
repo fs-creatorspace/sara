@@ -8,9 +8,6 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Mock data for demonstration purposes
-<<<<<<< Updated upstream
-interface_state = {'state': 'talk', 'text': "Some Txt herrre?? Some Txt herrre?? Some Txt herrre?? "}
-=======
 # Hey there! I was just thinking about achievements and accomplishments. So, what would you say is your proudest accomplishment?
 ## Oh, that's a tough one. I guess if I had to pick one, it would be completing a marathon. I remember It was both physically and mentally challenging, but the sense of achievement was incredible.
 # Wow, that's impressive! I can imagine the dedication and training it must have taken. What motivated you to take on such a challenge?
@@ -18,7 +15,6 @@ interface_state = {'state': 'talk', 'text': "Some Txt herrre?? Some Txt herrre??
 # That's inspiring! It's amazing how setting and achieving personal goals can be so fulfilling. Have you always been someone who sets ambitious goals for yourself?
 ## I think so. Setting goals gives me a sense of direction and purpose. It's not always about the end result, but the journey and growth along the way.
 interface_state = {'state': 'listen', 'text': "Hey there! I was just thinking about achievements and accomplishments. So, what would you say is your proudest accomplishment?"}
->>>>>>> Stashed changes
 
 
 @app.route('/')
