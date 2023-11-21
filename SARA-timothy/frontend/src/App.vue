@@ -1,5 +1,9 @@
 <template>
-  <div style="display: flex; flex-direction: column; width: 100vw; height: 100vh">
+  <div style="display: flex; flex-direction: row; width: 100vw; height: 100vh">
+    <!-- Text while speaking -->
+    <div class="text-bg-speak" v-if="isTalking">
+      <div class="text"><p class="animated-text-speak">{{ animatedText }}</p></div>
+    </div>
 
     <div style="flex: 1; display: flex; flex-direction: row">
       <!-- Smiley content -->
@@ -63,11 +67,6 @@
       </div>
     </div>
 
-    <!-- Text while speaking -->
-    <div class="text-bg-speak" v-if="isTalking">
-      <div class="text"><p class="animated-text-speak">{{ animatedText }}</p></div>
-    </div>
-
     <!-- Text while listening -->
     <!--    <div class="text-bg" v-if="text && !isThinking && !isListening">-->
     <!--      <div class="text"><p class="animated-text">{{ animatedText }}</p></div>-->
@@ -80,7 +79,7 @@ import axios from 'axios';
 import io from 'socket.io-client';
 
 // Replace 'http://localhost:5000' with the actual URL of your Flask server
-const socket = io('http://127.0.0.1:5000/get_interface_state');
+const socket = io('http://localhost:5000/get_interface_state');
 
 export default {
   name: 'App',
@@ -114,7 +113,7 @@ export default {
       }, randomTime);
     },
     getInterfaceState() {
-      axios.get('http://127.0.0.1:5000/get_interface_state', { timeout: 5000 })
+      axios.get('http://localhost:5000/get_interface_state', {timeout: 5000})
           .then(response => {
             // Successful response, handle the data
             if (this.text !== response.data.text || this.state !== response.data.state ) {
@@ -616,9 +615,9 @@ body.is-listening, html.is-listening {
 }
 
 .text-bg-speak {
-  height: 100%;
+  height: 100vh;
   width: 100%;
-  flex: 0.9;
+  flex: 1;
   background-color: black;
   opacity: 0.4;
   justify-content: center;
