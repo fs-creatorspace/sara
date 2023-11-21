@@ -3,12 +3,21 @@ from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 
 app = Flask(__name__)
+<<<<<<< Updated upstream
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Mock data for demonstration purposes
 interface_state = {'state': 'talk', 'text': "Some Txt herrre??"}
+=======
+CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:8080"}})
+
+socketio = SocketIO(app, cors_allowed_origins="http://127.0.0.1:8080")
+
+# Mock data for demonstration purposes
+interface_state = {'state': 'talk', 'text': "Dit is een test neef "}
+>>>>>>> Stashed changes
 
 
 @app.route('/')
@@ -35,4 +44,4 @@ def handle_interface_update(data):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
