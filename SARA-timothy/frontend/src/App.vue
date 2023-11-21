@@ -618,7 +618,7 @@ body.is-listening, html.is-listening {
 .text-bg-speak {
   height: 100%;
   width: 100%;
-  flex: 1;
+  flex: 0.9;
   background-color: black;
   opacity: 0.4;
   justify-content: center;

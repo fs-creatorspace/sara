@@ -8,7 +8,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Mock data for demonstration purposes
-interface_state = {'state': 'talk', 'text': "Some Txt herrre??"}
+interface_state = {'state': 'talk', 'text': "Some Txt herrre?? Some Txt herrre?? Some Txt herrre?? "}
 
 
 @app.route('/')
