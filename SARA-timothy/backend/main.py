@@ -3,12 +3,12 @@ from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:8081"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
-socketio = SocketIO(app, cors_allowed_origins="http://localhost:8081")
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Mock data for demonstration purposes
-interface_state = {'state': 'talk', 'text': "Dit is een te,evr vjevghermn kerjhfr gjst"}
+interface_state = {'state': 'talk', 'text': "Some Txt herrre??"}
 
 
 @app.route('/')
