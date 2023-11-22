@@ -1,9 +1,5 @@
 <template>
-  <div style="display: flex; flex-direction: row; width: 100vw; height: 100vh">
-    <!-- Text while speaking -->
-    <div class="text-bg-speak" v-if="isTalking">
-      <div class="text"><p class="animated-text-speak">{{ animatedText }}</p></div>
-    </div>
+  <div style="display: flex; flex-direction: column; width: 100vw; height: 100vh">
 
     <div style="flex: 1; display: flex; flex-direction: row">
       <!-- Smiley content -->
@@ -65,6 +61,11 @@
         </div>
 
       </div>
+    </div>
+
+    <!-- Text while speaking -->
+    <div class="text-bg-speak" v-if="isTalking">
+      <div class="text"><p class="animated-text-speak">{{ animatedText }}</p></div>
     </div>
 
     <!-- Text while listening -->
@@ -607,7 +608,7 @@ body.is-listening, html.is-listening {
 .text-bg {
   height: 100vh;
   width: 100%;
-  flex: 1;
+  flex: 0.8;
   background-color: black;
   opacity: 0.4;
   justify-content: center;
@@ -617,7 +618,7 @@ body.is-listening, html.is-listening {
 .text-bg-speak {
   height: 100vh;
   width: 100%;
-  flex: 1;
+  flex: 0.85;
   background-color: black;
   opacity: 0.4;
   justify-content: center;
