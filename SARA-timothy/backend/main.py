@@ -14,7 +14,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 ## Well, I've always been into fitness and running a marathon was a bucket list goal for me. I wanted to prove to myself that I could push my limits and achieve something that seemed almost impossible at first.
 # That's inspiring! It's amazing how setting and achieving personal goals can be so fulfilling. Have you always been someone who sets ambitious goals for yourself?
 ## I think so. Setting goals gives me a sense of direction and purpose. It's not always about the end result, but the journey and growth along the way.
-interface_state = {'state': 'listen', 'text': "Hey there! I was just thinking about achievements and accomplishments. So, what would you say is your proudest accomplishment?"}
+interface_state = {'state': 'speak', 'text': "Hey there! I was just thinking about achievements and accomplishments. So, what would you say is your proudest accomplishment?"}
 
 
 @app.route('/')

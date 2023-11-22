@@ -79,7 +79,7 @@ import axios from 'axios';
 import io from 'socket.io-client';
 
 // Replace 'http://localhost:5000' with the actual URL of your Flask server
-const socket = io('http://localhost:5000/get_interface_state');
+const socket = io('http://127.0.0.1:5000/get_interface_state');
 
 export default {
   name: 'App',
@@ -113,7 +113,7 @@ export default {
       }, randomTime);
     },
     getInterfaceState() {
-      axios.get('http://localhost:5000/get_interface_state', {timeout: 5000})
+      axios.get('http://127.0.0.1:5000/get_interface_state', {timeout: 5000})
           .then(response => {
             // Successful response, handle the data
             if (this.text !== response.data.text || this.state !== response.data.state ) {
