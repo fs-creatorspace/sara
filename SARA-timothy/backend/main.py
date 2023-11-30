@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
+from conversation import Conversation
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -19,7 +20,46 @@ interface_state = {'state': 'talk', 'text': "Hey there! I was just thinking abou
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    print("Starting conversation")
+    conv = Conversation("conversations")
+
+    for _ in range(3):
+
+        # Get first question
+        question = conv.question_storage[-1]
+
+        # Set interface state to question
+        global interface_state
+        interface_state = {'state': 'talk', 'text': question}
+
+        # Generate audio and get question path
+        question_path = conv.textToSpeech(question)
+
+        # Speak question out loud
+        conv.speak(question_path)
+
+        interface_state = {'state': 'listen', 'text': ""}
+
+        conv.record()
+
+        interface_state = {'state': 'think', 'text': ""}
+
+        answer_text = conv.speechToText()
+        
+        # Summarize answer
+        conv.summarize(answer_text)
+
+        # Generate a follow up question
+        conv.generateQuestion()
+
+        # Show the histiry for debug reasons
+        conv.showHistory()
+
+        # Increase conversation counter by one so files don't get overridden
+        conv.conv_counter += 1
+
+
+    return "starting conversation"
 
 
 @app.route('/get_interface_state', methods=['GET'])
