@@ -1,6 +1,5 @@
 <template>
   <div style="display: flex; flex-direction: column; width: 100vw; height: 100vh">
-
     <div style="flex: 1; display: flex; flex-direction: row">
       <!-- Smiley content -->
       <div class="content">
@@ -117,7 +116,7 @@ export default {
       axios.get('http://127.0.0.1:5000/get_interface_state', {timeout: 5000})
           .then(response => {
             // Successful response, handle the data
-            if (this.text !== response.data.text || this.state !== response.data.state ) {
+            if (this.text !== response.data.text || this.state !== response.data.state) {
               this.handleReceivedState(response.data.state, response.data.text);
             }
           })
@@ -198,7 +197,7 @@ export default {
       }
 
       if (!this.textFullyTyped) {
-        setTimeout(this.typeText, 100); // Adjust typing speed
+        setTimeout(this.typeText, 70); // Adjust typing speed
       }
     },
   },
@@ -215,7 +214,7 @@ export default {
     this.getInterfaceState();
 
     // Optionally, you can set up a periodic fetch (e.g., every 5 seconds)
-    this.intervalId = setInterval(() => this.getInterfaceState(), 5000);
+    this.intervalId = setInterval(() => this.getInterfaceState(), 1000);
   },
 
   beforeUnmount() {
@@ -622,7 +621,7 @@ body.is-listening, html.is-listening {
   background-color: black;
   opacity: 0.4;
   justify-content: center;
-  animation: slideInFromLeft 1s ease forwards;
+  animation: slideInFromBottom 1s ease forwards;
 }
 
 .animated-text {
@@ -652,12 +651,12 @@ body.is-listening, html.is-listening {
   align-items: center;
 }
 
-@keyframes slideInFromLeft {
+@keyframes slideInFromBottom {
   0% {
-    transform: translateX(-100%); /* Start position off-screen to the left */
+    transform: translateY(200%); /* Start position off-screen to the left */
   }
   100% {
-    transform: translateX(0); /* End position (visible on the screen) */
+    transform: translateY(0); /* End position (visible on the screen) */
   }
 }
 

@@ -45,7 +45,7 @@ def index():
         interface_state = {'state': 'think', 'text': ""}
 
         answer_text = conv.speechToText()
-        
+
         # Summarize answer
         conv.summarize(answer_text)
 
