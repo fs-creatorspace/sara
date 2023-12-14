@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Open a new xterm and run npm run serve
-xterm -e "cd ./sara/sara/SARA-timothy/frontend && npm run serve"
+xterm -e "cd ./sara/sara/SARA-timothy/frontend && npm run serve" &
 
 # Wait for a moment to ensure the frontend server is up
-sleep 5
+sleep 10
 
 # activate virtual environment
 source ./sara/sara/.venv/bin/activate
