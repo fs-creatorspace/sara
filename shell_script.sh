@@ -9,8 +9,6 @@ sleep 10
 # activate virtual environment
 source ./sara/sara/.venv/bin/activate
 
-#ensure DISPLAY is set
-export DISPLAY=0.0
 
 #run the script in xterm
 xterm -hold -e "python -u ./sara/sara/SARA-timothy/backend/main.py" .
