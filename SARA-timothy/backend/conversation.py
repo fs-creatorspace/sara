@@ -135,6 +135,7 @@ class Conversation():
             if audioData:
                 text = self.recognizer.recognize_google(audioData)
             else:
+                audioData = self.audio_storage[-1]
                 try:
                     text = self.recognizer.recognize_google(audioData)
                 except sr.UnknownValueError:
