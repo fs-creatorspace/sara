@@ -4,6 +4,7 @@ import gtts
 from dotenv import load_dotenv
 import pygame.mixer
 import os
+import random
 
 class Conversation():
     def __init__(self, path: str, load = 0, question_limit = 3):
@@ -18,6 +19,10 @@ class Conversation():
         self.transcript_storage = []
         self.summary_storage = []
 
+        starting_questions = [  "Hey! I was just thinking about memories. Do you have any childhood memory that makes you feel especially nostalgic?",
+                                "Hey there! I was just thinking about achievements and accomplishments. So, what would you say is your proudest accomplishment?",
+                                "Hey! I was just reminiscing about some funny moments in life. Do you have a memory that always makes you laugh when you think about it? What's your funniest memory?"
+                            ]
         if load:
             self.id = load
             # TBD
@@ -25,7 +30,7 @@ class Conversation():
         else:
             # TBD
             # Load random start question
-            self.question_storage.append("How did you meet your first love?")
+            self.question_storage.append(random.choice(starting_questions))
             pass
 
         if not os.path.isdir(path):
@@ -129,7 +134,11 @@ class Conversation():
         else:
             if audioData:
                 text = self.recognizer.recognize_google(audioData)
-            else: text = self.recognizer.recognize_google(self.audio_storage[-1])
+            else:
+                try:
+                    text = self.recognizer.recognize_google(audioData)
+                except sr.UnknownValueError:
+                    text = "Sorry, I couldn't understand the audio."
         print(f"You said: {text}")
         self.transcript_storage.append(text)
         return text
