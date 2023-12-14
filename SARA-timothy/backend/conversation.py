@@ -100,7 +100,7 @@ class Conversation():
         
         with sr.Microphone() as source:
             print("Please speak something...")
-            self.recognizer.adjust_for_ambient_noise(source, duration=1)
+            self.recognizer.adjust_for_ambient_noise(source, duration=3)
             self.recognizer.energy_threshold = 4000
             audio_data = self.recognizer.listen(source)
             print("Recognizing...")
