@@ -28,12 +28,12 @@ def index():
         # Get first question
         question = conv.question_storage[-1]
 
+        # Generate audio and get question path
+        question_path = conv.textToSpeech(question)
+
         # Set interface state to question
         global interface_state
         interface_state = {'state': 'talk', 'text': question}
-
-        # Generate audio and get question path
-        question_path = conv.textToSpeech(question)
 
         # Speak question out loud
         conv.speak(question_path)
