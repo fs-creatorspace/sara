@@ -4,7 +4,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 
-from conversation import Conversation  # Import the Conversation class from your module
+from conversation_old import Conversation  # Import the Conversation class from your module
 
 class ChatBotApp(App):
     def build(self):

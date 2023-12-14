@@ -1,4 +1,4 @@
-from conversation import Conversation
+from conversation_old import Conversation
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 
