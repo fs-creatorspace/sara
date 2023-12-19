@@ -145,6 +145,7 @@ class Conversation():
         return text
     
     def summarize(self, text: str) -> str:
+        self.summary_storage.append(text)
         return text
         # Recieves raw text, refines grammar and summarizes it
         # Saves summary to summary_storage
