@@ -59,7 +59,7 @@ def index():
         conv.conv_counter += 1
 
 
-    return "starting conversation"
+    return Conversation.summary()
 
 
 @app.route('/get_interface_state', methods=['GET'])
